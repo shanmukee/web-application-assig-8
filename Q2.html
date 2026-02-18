@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Number to Words</title>
+<style>
+body {
+    font-family: Arial;
+    padding: 20px;
+}
+
+</style>
+</head>
+
+<body>
+
+<h3>Enter a number (0–999)</h3>
+
+<input type="text" id="num" maxlength="3">
+<button onclick="convert()">Convert</button>
+
+<div id="result"></div>
+
+<script>
+function convert() {
+
+    var n = document.getElementById("num").value;
+
+    if (!/^\d+$/.test(n)) {
+        document.getElementById("result").innerHTML = "Enter digits only";
+        return;
+    }
+
+    n = parseInt(n);
+
+    if (n < 0 || n > 999) {
+        document.getElementById("result").innerHTML = "Enter number between 0 and 999";
+        return;
+    }
+
+    var ones = ["Zero","One","Two","Three","Four","Five","Six","Seven","Eight","Nine"];
+    var teens = ["Ten","Eleven","Twelve","Thirteen","Fourteen","Fifteen","Sixteen","Seventeen","Eighteen","Nineteen"];
+    var tens = ["","","Twenty","Thirty","Forty","Fifty","Sixty","Seventy","Eighty","Ninety"];
+
+    var word = "";
+
+    if (n >= 100) {
+        word += ones[Math.floor(n/100)] + " Hundred ";
+        n = n % 100;
+    }
+
+    if (n >= 10 && n <= 19) {
+        word += teens[n-10];
+    }
+    else {
+        if (n >= 20) {
+            word += tens[Math.floor(n/10)] + " ";
+            n = n % 10;
+        }
+        if (n > 0 || word == "")
+            word += ones[n];
+    }
+
+    document.getElementById("result").innerHTML = word;
+}
+</script>
+
+</body>
+</html>
